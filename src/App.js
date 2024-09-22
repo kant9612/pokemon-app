@@ -6,6 +6,7 @@ function App() {
 
   const initialURL = "https://pokeapi.co/api/v2/pokemon"
   const [ loading, setLoading ] = useState(true);
+  const [ pokemonData, setPokemonData ] = useState([]);
 
   useEffect(() => {
     const fetchPokemonData = async () => {
@@ -18,15 +19,17 @@ function App() {
     fetchPokemonData();
   }, []);
 
-  const loadPokemon = (data) => {
-    let _pokemonData = Promise.all(
+  const loadPokemon = async (data) => {
+    let _pokemonData = await Promise.all(
       data.map((pokemon) => {
         let pokemonRecord = getPokemon(pokemon.url);
         return pokemonRecord;
       })
-    )
+    );
+    setPokemonData(_pokemonData);
   };
-
+  
+  console.log(pokemonData);
   return (
     <div className="App">
       {loading ? (<h1>ロード中です・・・</h1>) : (<h1>ポケモンデータを取得しました！</h1>)}
