@@ -39,6 +39,7 @@ function App() {
     setLoading(true);
     let data = await getAllPokemon(nextURL);
     await loadPokemon(data.results);
+    setNextURL(data.next);
     setLoading(false);
   };
   const handlePrevPage = () => {};
